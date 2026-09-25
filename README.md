@@ -1,6 +1,2 @@
 # US-VISA
 MLOPs Production Ready Machine Learning Project
-
-INSTALL ANACONDA 
-INSTALL GITHUB 
-INTSALL MONGDODB
