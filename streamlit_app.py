@@ -124,28 +124,14 @@ with st.sidebar:
     st.caption("Adjudication Risk & Explainability System")
     st.divider()
 
-    st.markdown("#### **System & Model Status**")
+    st.markdown("#### **Model Performance**")
     if model_loaded:
-        st.success("🟢 Active Model: **XGBoost Ensemble**")
-        st.caption("Production Registry: `saved_models/model.pkl`")
-        st.caption("Source Store: **MongoDB Atlas** (50,960 records)")
-        st.caption("Test F1-Score: **0.7595** | Acc: **70.84%**")
+        st.success("🟢 Model: **XGBoost Classifier**")
+        st.caption("Accuracy: **70.84%**")
+        st.caption("F1-Score: **0.7595**")
+        st.caption("Trained on: **50,960 records**")
     else:
         st.error(f"🔴 Model Offline: {model_load_err}")
-
-    st.divider()
-    st.markdown("#### **Trigger Retraining Pipeline**")
-    st.caption("Runs ingestion, KS-drift validation, Yeo-Johnson transformation, and model selection.")
-    if st.button("🚀 Run MLOps Training Pipeline", use_container_width=True):
-        with st.spinner("Executing end-to-end training pipeline in background..."):
-            try:
-                from us_visa.pipeline.training_pipeline import TrainPipeline
-                pipeline = TrainPipeline()
-                pipeline.run_pipeline()
-                st.success("Pipeline executed successfully! New model deployed.")
-                st.cache_resource.clear()
-            except Exception as pe:
-                st.error(f"Pipeline error: {pe}")
 
     st.divider()
     st.markdown("👨‍💻 **Project Author**: Ashwamit")
@@ -159,12 +145,11 @@ st.markdown(
 )
 
 # Tabs
-tab1, tab2, tab3, tab4, tab5 = st.tabs([
+tab1, tab2, tab3, tab4 = st.tabs([
     "🎯 Single Petition Risk Assessment",
     "🧠 Explainable AI & SHAP Insights",
     "🔮 Counterfactual What-If Simulator",
     "📁 Batch Petitions Processing",
-    "📊 MLOps Pipeline & Drift Health",
 ])
 
 # ==========================================
@@ -513,52 +498,4 @@ with tab4:
                 "text/csv",
             )
 
-
-# ==========================================
-# TAB 5: MLOps Pipeline & Drift Monitoring
-# ==========================================
-with tab5:
-    st.markdown("### 📊 **Enterprise MLOps Architecture & Drift Health**")
-    st.caption("Real-time monitoring of covariate drift and pipeline components.")
-
-    m_col1, m_col2, m_col3, m_col4, m_col5, m_col6 = st.columns(6)
-    with m_col1:
-        st.markdown("🟢 **Data Ingestion**\nMongoDB Atlas")
-    with m_col2:
-        st.markdown("🟢 **Validation**\nSchema & Drift")
-    with m_col3:
-        st.markdown("🟢 **Transformation**\nYeo-Johnson & SMOTE")
-    with m_col4:
-        st.markdown("🟢 **Model Trainer**\nXGBoost Tuned")
-    with m_col5:
-        st.markdown("🟢 **Evaluation**\nBenchmark F1")
-    with m_col6:
-        st.markdown("🟢 **Model Pusher**\nProduction Registry")
-
-    st.divider()
-    st.markdown("#### **Covariate Drift Assessment (Kolmogorov-Smirnov Test)**")
-
-    # Load drift report if present
-    from us_visa.utils.main_utils import read_yaml_file
-    drift_file = None
-    import glob
-    reports = glob.glob("artifact/**/report.yaml", recursive=True)
-    if reports:
-        drift_file = max(reports, key=os.path.getmtime)
-
-    if drift_file and os.path.exists(drift_file):
-        drift_data = read_yaml_file(drift_file)
-        rows = []
-        for col_name, stats in drift_data.items():
-            if isinstance(stats, dict):
-                rows.append({
-                    "Feature": col_name,
-                    "KS Statistic": round(stats.get("statistic", 0.0), 4),
-                    "p-value": round(stats.get("p_value", 0.0), 4),
-                    "Drift Status": "Detected (p < 0.05)" if stats.get("drift_status") else "Healthy",
-                })
-        st.dataframe(pd.DataFrame(rows), use_container_width=True)
-    else:
-        st.info("Run the training pipeline to inspect live drift statistics.")
-
-st.markdown("<br><hr><center style='color:#94A3B8;'>US Visa Adjudication Risk Engine | Enterprise MLOps Project Submission</center>", unsafe_allow_html=True)
+st.markdown("<br><hr><center style='color:#94A3B8;'>US Visa Adjudication Risk Engine | Machine Learning Decision Support System</center>", unsafe_allow_html=True)
