@@ -149,7 +149,6 @@ with st.sidebar:
 
     st.divider()
     st.markdown("👨‍💻 **Project Author**: Ashwamit")
-    st.markdown("🏆 **Target**: College ML Submission #1 Spot")
 
 
 # Header
