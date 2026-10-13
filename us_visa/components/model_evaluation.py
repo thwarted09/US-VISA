@@ -49,7 +49,7 @@ class ModelEvaluation:
             logging.info("Initiating Model Evaluation...")
             test_df = pd.read_csv(self.data_ingestion_artifact.test_file_path)
 
-            x = test_df.drop(columns=[TARGET_COLUMN], axis=1)
+            x = test_df.drop(columns=[TARGET_COLUMN])
             y = test_df[TARGET_COLUMN].apply(lambda val: 1 if str(val).strip().capitalize() == "Certified" else 0)
 
             trained_model = load_object(file_path=self.model_trainer_artifact.trained_model_file_path)

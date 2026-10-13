@@ -49,7 +49,10 @@ class DataTransformation:
             num_features = schema_config["num_features"]
 
             numeric_transformer = StandardScaler()
-            oh_transformer = OneHotEncoder(drop="first", handle_unknown="ignore", sparse_output=False)
+            try:
+                oh_transformer = OneHotEncoder(drop="first", handle_unknown="ignore", sparse_output=False)
+            except TypeError:
+                oh_transformer = OneHotEncoder(drop="first", handle_unknown="ignore", sparse=False)
             ordinal_encoder = OrdinalEncoder(handle_unknown="use_encoded_value", unknown_value=-1)
 
             transform_pipe = Pipeline(
@@ -99,12 +102,12 @@ class DataTransformation:
             test_df = drop_columns(df=test_df, cols=drop_cols)
 
             # Separate inputs and target
-            input_feature_train_df = train_df.drop(columns=[TARGET_COLUMN], axis=1)
+            input_feature_train_df = train_df.drop(columns=[TARGET_COLUMN])
             target_feature_train_df = train_df[TARGET_COLUMN].apply(
                 lambda x: 1 if str(x).strip().capitalize() == "Certified" else 0
             )
 
-            input_feature_test_df = test_df.drop(columns=[TARGET_COLUMN], axis=1)
+            input_feature_test_df = test_df.drop(columns=[TARGET_COLUMN])
             target_feature_test_df = test_df[TARGET_COLUMN].apply(
                 lambda x: 1 if str(x).strip().capitalize() == "Certified" else 0
             )
