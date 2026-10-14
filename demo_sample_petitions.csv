@@ -1,0 +1,11 @@
+continent,education_of_employee,has_job_experience,requires_job_training,no_of_employees,yr_of_estab,region_of_employment,prevailing_wage,unit_of_wage,full_time_position
+Asia,Master's,Y,N,1500,2005,West,125000.0,Year,Y
+Europe,Doctorate,Y,N,4500,1998,Northeast,165000.0,Year,Y
+Asia,Bachelor's,N,Y,35,2022,South,38000.0,Year,N
+Africa,High School,N,Y,80,2019,Midwest,32000.0,Year,Y
+North America,Master's,Y,N,2200,2010,Northeast,98000.0,Year,Y
+Asia,Doctorate,Y,N,8500,1985,West,145000.0,Year,Y
+South America,Bachelor's,N,N,120,2015,South,52000.0,Year,Y
+Asia,High School,N,Y,25,2023,Island,28000.0,Year,N
+Europe,Master's,Y,N,3100,2008,Midwest,110000.0,Year,Y
+Oceania,Bachelor's,Y,N,950,2012,West,88000.0,Year,Y
